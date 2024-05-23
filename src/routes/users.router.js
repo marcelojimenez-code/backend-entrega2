@@ -47,6 +47,8 @@ const router = Router();
 //     res.send({ result: "success", payload: result })
 // })
 
+
+//RUTAS PARA EL INGRESO
 router.get('/crear', (req,res)=>{
     res.render('users/crear',{title:"crear usuario"})
 })
@@ -59,6 +61,13 @@ router.get('/login', (req,res)=>{
     res.render('users/login',{title:"Iniciar Sesion"})
 })
 
+router.get('/editar/:id', async(req,res)=>{
+  const user = await userModel.findById(req.params.id).lean().exec()
+  res.render('users/editar',{title:"editar usuario", user })
+})
+
+
+//GRABAR PARA PANTALLA
 router.post('/register', async(req,res)=>{
    const usuario = req.body
    const findUser = await userModel.findOne({email:usuario.email})
@@ -72,11 +81,6 @@ router.post('/register', async(req,res)=>{
    const newUser = await userModel.create(usuario)
    return res.render('users/listado',{title:"Iniciar Sesion", newUser, message:"el usuario creado"})
 
-})
-
-router.get('/editar/:id', async(req,res)=>{
-  const user = await userModel.findById(req.params.id).lean().exec()
-  res.render('users/editar',{title:"editar usuario", user })
 })
 
 router.post('/editar/:id', async (req, res) => {

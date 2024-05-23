@@ -33,3 +33,19 @@ Entrega Backend
 10- Base de datos Ecommerce MongoDB
 
 ![alt text](capturas/11.PNG)
+
+11- Tabla Carrito
+
+![alt text](capturas/12.PNG)
+
+12- Tabla Mensajes 
+
+![alt text](capturas/13.PNG)
+
+13- Tabla Productos
+
+![alt text](capturas/14.PNG)
+
+14- Tabla Usuarios
+
+![alt text](capturas/15.PNG)
