@@ -1,5 +1,6 @@
 Entrega Backend
 1- Estructura de la entrega
+
 ![alt text](capturas/9.PNG)
 
 1.1- pagina principal ecommerce
@@ -26,5 +27,8 @@ Entrega Backend
 8- Segunda hoja del catalogo de compras
 ![alt text](capturas/7.PNG)
 
-8- Formulario para crear productos al catalogo
+9- Formulario para crear productos al catalogo
 ![alt text](capturas/8.PNG)
+
+10- Base de datos Ecommerce MongoDB
+![alt text](capturas/11.PNG)
