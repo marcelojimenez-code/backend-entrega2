@@ -74,27 +74,22 @@ router.post('/register', async(req,res)=>{
 
 })
 
-router.get('/editar/:uid', async(req,res)=>{
-  let { uid } = req.params
-
-  const user = await userModel.findById({uid})
-  console.log(user)
-
-  res.render('users/editar',{title:"editar usuario", id: uid, user })
+router.get('/editar/:id', async(req,res)=>{
+  const user = await userModel.findById(req.params.id).lean().exec()
+  res.render('users/editar',{title:"editar usuario", user })
 })
 
-router.put('/:uid', async (req, res) => {
-        let { uid } = req.params
-    
+router.post('/editar/:id', async (req, res) => {
+
+        let { id } = req.params    
         let userToReplace = req.body
-    
-        if (!userToReplace.nombre || !userToReplace.apellido || !userToReplace.email || !userToReplace.usuario || !userToReplace.password) {
-            res.send({ status: "error", error: "Parametros no definidos" })
+
+        if (!userToReplace.password) {
+            return res.render('users/editar',{title:"editar usuario", message: "No se puede grabar sin password" })
         }
-        let result = await userModel.updateOne({ _id: uid }, userToReplace)
-    
-        res.send({ result: "success", payload: result })
-    })
+        let result = await userModel.updateOne({ _id: id }, userToReplace)
+        return res.render('users/listado',{title:"Iniciar Sesion",userToReplace, message: "Usuario Actualizado", result})
+})
 
 
 // Ruta para iniciar sesión
@@ -103,8 +98,6 @@ router.post('/login', async (req, res) => {
 
     try {
       const validar = await userModel.findOne({ email: login.email , password: login.password });
-
-      //necesitas que traiga todos los usuario?=
 
       if (validar) {
         const users = await userModel.find().lean().exec()
@@ -117,7 +110,7 @@ router.post('/login', async (req, res) => {
       return res.render('users/login',{message:"Error al intentar iniciar sesión"})
     }
 
-  });    
+});    
 
 
 export default router;
