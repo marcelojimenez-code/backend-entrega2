@@ -61,46 +61,35 @@ router.get('/:cid', async ( req, res ) => {
 //Esta ruta despues la tienes que modificar, porque se uspoen con jwt tendras al usuario que ya tiene un carrito,
 //Entonces llamas ese carrito y lo recibes y solo envias un post con el _id del producto
 
-router.get('/:cid/product/:pid',async(req,res)=>{
-    const {cid} = req.params
-    const {pid} = req.params
-    let quantity = 1
+router.get('/:cid/product/:pid', async (req, res) => {
+    const { cid, pid } = req.params;
+    const quantity = 1;
 
     try {
 
-        const getCart = await cartModel.findOne({_id:cid})
+        const getCart = await cartModel.findOne({ _id: cid });
 
-        const findProductInCart = getCart.products.find(product => product._id.toString() === pid)
+        const findProductInCart = getCart.products.find(product => product._id.toString() === pid);
 
-        console.log(findProductInCart)
+        if (findProductInCart) {
+            findProductInCart.quantity += quantity;
+        } else {
 
-        if(findProductInCart){
-            getCart.products[findProductInCart].quantity += quantity
-
-        }else{
-            getCart.products.push({_id:pid,quantity:quantity})
+            getCart.products.push({_id:pid,quantity:quantity});
         }
 
-   
-
-        await getCart.save()
-
+        await getCart.save();
 
         res.status(200).json({
-            cart:getCart
-
-        })
+            cart: getCart
+        });
         
     } catch (error) {
-
-        res.status(200).json({
-            error:"Estoy en el error",
-            message:error
-
-        })
-        
+        res.status(500).json({
+            message: error.message
+        });
     }
-})
+});
 
 
 
