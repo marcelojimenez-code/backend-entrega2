@@ -1,0 +1,28 @@
+<link
+  href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css"
+  rel="stylesheet"
+/>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">Chat</div>
+          
+          <div class="card-body" style="min-height: 500px;">
+
+            <div><i id="username"></i>
+                <input id="chatbox" type="text" />
+            </div>
+            <br><hr><br>
+            <div id="messageLogs"></div>
+
+          </div>
+      </div>
+    </div>
+  </div>
+              <br>
+            <div style="clear: both;"></div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/chat.js"></script>

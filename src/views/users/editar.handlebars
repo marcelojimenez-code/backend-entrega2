@@ -1,0 +1,26 @@
+
+    <div class="container">
+        <h1>Editar Usuario</h1>
+        <form action="/users/editar" method="POST">
+              <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{user.name}}">
+              </div>
+              <div class="mb-3">
+                    <label for="apellidos" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" value="{{user.lastname}}">
+              </div>
+              <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{user.email}}">
+              </div>
+              <div class="mb-3">
+                    <label class="form-label" for="password">Password:</label>
+                    <input class="form-control" type="password" id="password" name="password"><br><br>
+              </div>
+              <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
+        </form>
+    </div>
+
+
+            

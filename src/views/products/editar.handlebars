@@ -1,0 +1,46 @@
+<!-- views/products/editar.handlebars -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Producto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Producto</h1>
+        <form action="/products/editar/{{producto._id}}" method="POST">
+            <div class="form-group">
+                <label for="title">Título</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{producto.title}}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Descripción</label>
+                <input type="text" class="form-control" id="description" name="description" value="{{producto.description}}" required>
+            </div>
+            <div class="form-group">
+                <label for="price">Precio</label>
+                <input type="number" class="form-control" id="price" name="price" value="{{producto.price}}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{producto.email}}" required>
+            </div>
+            <div class="form-group">
+                <label for="thumbnail">Thumbnail</label>
+                <input type="text" class="form-control" id="thumbnail" name="thumbnail" value="{{producto.thumbnail}}" required>
+            </div>
+            <div class="form-group">
+                <label for="code">Código</label>
+                <input type="text" class="form-control" id="code" name="code" value="{{producto.code}}" required>
+            </div>
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input type="number" class="form-control" id="stock" name="stock" value="{{producto.stock}}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Actualizar Producto</button>
+        </form>
+    </div>
+</body>
+</html>

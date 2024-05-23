@@ -1,0 +1,47 @@
+
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">Ingresar Producto</div>
+          <div class="card-body">
+            {{#if message}}
+                <div class="alert alert-success" role="alert">Producto creado correctamente</div>
+            {{/if}}
+
+            <form id="productForm" action="/api/products" method="POST">
+              <div class="mb-3">
+                <label for="title" class="form-label">Nombre del Producto</label>
+                <input type="text" class="form-control" id="title" name="title" />
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Descripción</label>
+                <textarea class="form-control" id="description" name="description" rows="3" /></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="price" class="form-label">Precio</label>
+                <input type="number" class="form-control" id="price" name="price" min="0.01" step="0.01" />
+              </div>
+              <div class="mb-3">
+                    <label for="code" class="form-label">Código</label>
+                    <input type="text" class="form-control" id="code" name="code" >
+              </div>
+              <div class="mb-3">
+                    <label for="stock">Stock</label>
+                    <input type="number" class="form-control" id="stock" name="stock" >
+              </div>
+              <div class="mb-3">
+                    <label for="thumbnails">Thumbnail</label>
+                    <input type="text" class="form-control" id="thumbnails" name="thumbnails" >
+              </div>
+              <button type="submit" class="btn btn-primary">Agregar Producto</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><br>
