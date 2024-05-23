@@ -6,18 +6,22 @@ const router = Router()
 router.get('/', async (req, res) => {
 
     try {
+        const carts = await cartModel.find().lean().exec()
 
-        const carts = await newInstanceCart.readCarts()
-        res.status(200).json( [ { carts } ] );
+
+        res.status(200).json({
+            status:true,
+            message:'Lista de carritos',
+            data: carts
+        })
 
     } catch (error) {
-
         res.status(500).json( [ { message: 'Hubo un error al obtener los carritos' } ] );
-
     }
 })
 
 /* POST / */
+//Crea un nuevo carro
 router.post('/', async ( req, res ) => {
  
     try {
@@ -33,36 +37,93 @@ router.post('/', async ( req, res ) => {
 /* GET /:cid */
 router.get('/:cid', async ( req, res ) => {
 
-    const cid = parseInt( req.params.cid );
- 
-    try {
-        const listOfProductsFromCart = await newInstanceCart.getProductsFromCart(cid);
-        res.status(200).json([{ listOfProductsFromCart }]);
-    } catch (error) {
-        res.status(500).json([{ message: error }]);
-    }
-    
-        
+    const {cid} = req.params
+
+    try{
+        const cart = await cartModel.findOne({_id:cid})
+        res.status(200).json({
+            status:true,
+            message:`Carrito id:${cid}`,
+            data:cart
+        })
+
+    }catch(error){
+        res.status(200).json({
+            status:false,
+            message:"Ocurrio un error",
+            error:error
+        })
+    }        
 })
 
 /* POST  /:cid/product/:pid */
-router.post('/:cid/product/:pid', async (req, res) => {
-    
-    /* Se obtinen los valores de params */
-    const cid = parseInt(req.params.cid);
-    const pid = parseInt(req.params.pid);
+//ESTA NO ES POST SI RECIBES PARAMETROS jaja
+//Esta ruta despues la tienes que modificar, porque se uspoen con jwt tendras al usuario que ya tiene un carrito,
+//Entonces llamas ese carrito y lo recibes y solo envias un post con el _id del producto
+
+router.get('/:cid/product/:pid',async(req,res)=>{
+    const {cid} = req.params
+    const {pid} = req.params
+    let quantity = 1
 
     try {
 
-        /* Se llama al metodo para añadir productos a un carrito exitente o nuevo carrito */
-        const currentCart = await newInstanceCart.addProductToCart(cid, pid)
-        res.status(200).json([{ message: 'Se añadio correctamente el producto al carrito' }, {currentCart}]);
+        const getCart = await cartModel.findOne({_id:cid})
 
-    } catch (error) {
+        const findProductInCart = getCart.products.find(product => product._id.toString() === pid)
+
+        console.log(findProductInCart)
+
+        if(findProductInCart){
+            getCart.products[findProductInCart].quantity += quantity
+
+        }else{
+            getCart.products.push({_id:pid,quantity:quantity})
+        }
+
+   
+
+        await getCart.save()
+
+
+        res.status(200).json({
+            cart:getCart
+
+        })
         
-        res.status(500).json([{ message: error }]);
+    } catch (error) {
+
+        res.status(200).json({
+            error:"Estoy en el error",
+            message:error
+
+        })
+        
     }
-});
+})
+
+
+
+
+
+
+// router.post('/:cid/product/:pid', async (req, res) => {
+    
+//     /* Se obtinen los valores de params */
+//     const cid = parseInt(req.params.cid);
+//     const pid = parseInt(req.params.pid);
+
+//     try {
+
+//         /* Se llama al metodo para añadir productos a un carrito exitente o nuevo carrito */
+//         const currentCart = await newInstanceCart.addProductToCart(cid, pid)
+//         res.status(200).json([{ message: 'Se añadio correctamente el producto al carrito' }, {currentCart}]);
+
+//     } catch (error) {
+        
+//         res.status(500).json([{ message: error }]);
+//     }
+// });
 
 
 
