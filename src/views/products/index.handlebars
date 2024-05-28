@@ -3,37 +3,42 @@
         width: 150px;
         height: 200px;
     }
-    .card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        height: 100%;
+    
+    .card-text{
+        font-size: 13px;
     }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.3/dist/sweetalert2.min.js"></script>
 <br>
 
-<div class="container mt-5">
+<div class="container">
 <div class="row">
     {{#each data.docs}}
     <div class="col-md-3 mb-3">
         <div class="card">
-            <img src="{{this.thumbnails}}" class="card-img-top product-image" alt="{{this.title}}">
+            <div class="card-header bg-primary text-white">
+                <b>{{this.title}}</b>
+            </div>
+            
             <div class="card-body">
-                <h5 class="card-title">{{this.title}}</h5>
-                <p class="card-text">{{this.description}}</p>
-                <p class="card-text"><strong>Precio:</strong> ${{this.price}}</p>
-                <p class="card-text"><strong>Stock:</strong> {{this.stock}}</p>
+                <div align="center"><img src="{{this.thumbnails}}" class="card-img-top product-image" alt="{{this.title}}"></div>
+                <br>
+                
             </div>
 
             <div class="card-footer">
+                <p class="card-text text-muted"><strong>Id:</strong>{{this._id}}<br>
+                                                <strong>Categoria:</strong>{{this.description}}<br>
+                                                <strong>Precio:</strong> ${{this.price}}<br>
+                                                <strong>Stock:</strong> {{this.stock}}</p>
+                <div align="center">
                 {{#if this.stock}}
                 <button type="button" class="btn btn-primary add-to-cart" data-product-id="{{this._id}}">Agregar al carrito</button>
                 {{else}}
-                <p class="card-text"><strong>Categoría:</strong> Sin Stock</p>
+                <p class="card-text"><strong style="color:red"> Sin Stock</strong></p>
                 {{/if}}
+                </div>
             </div>
         </div>
     </div>
